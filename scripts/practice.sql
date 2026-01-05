@@ -111,3 +111,34 @@ Lesson Learned:
 1. If you are asked of subtracting last and first date, consider using MIN() and MAX()
 2. Use GROUP BY, which helps to categorize.
 */
+
+--- Challenge # 3: Second Day Confirmation 
+-- Solution 1:
+SELECT  e.user_id
+FROM emails AS e 
+LEFT JOIN texts AS t 
+   ON e.email_id=t.email_id
+WHERE signup_action='Confirmed' AND
+  date(action_date)-date(signup_date)=1
+
+-- Solution 2: 
+SELECT e.user_id
+FROM emails 
+JOIN text t
+	ON e.email_id = t.email.id
+GROUP BY e.user_id, e.signup_date::date
+HAVING 
+	MAX(CASE WHEN t.signup_action = 'Confirmed' AND
+		t.action_date::date = e.signup_date::date + 1
+		THEN 1 ELSE 0 END) = 1
+AND
+	MAX(CASE WHEN t.signup_action = 'Confirmed'
+	AND t.action_date::date = e.signup_date::date
+	THEN 1 ELSE 0 END) = 0;
+
+
+
+/*
+Lesson Learned:
+1. You can use CASE WHEN in HAVING clause
+*/
