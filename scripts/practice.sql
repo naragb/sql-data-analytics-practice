@@ -142,3 +142,15 @@ AND
 Lesson Learned:
 1. You can use CASE WHEN in HAVING clause
 */
+
+-- Challenge # 4
+Solution:
+SELECT u.city,
+      COUNT(order_id) AS total_orders
+FROM trades t 
+LEFT JOIN users u 
+ON t.user_id = u.user_id
+WHERE t.status = 'Completed'
+GROUP BY u.city
+ORDER BY COUNT(order_id)  DESC
+LIMIT 3 
