@@ -144,7 +144,7 @@ Lesson Learned:
 */
 
 -- Challenge # 4
-Solution:
+-- Solution:
 SELECT u.city,
       COUNT(order_id) AS total_orders
 FROM trades t 
@@ -154,3 +154,15 @@ WHERE t.status = 'Completed'
 GROUP BY u.city
 ORDER BY COUNT(order_id)  DESC
 LIMIT 3 
+
+-- Challenge # 5
+-- Solution:
+SELECT 
+      EXTRACT (MONTH FROM submit_date) AS mth, 
+      product_id,
+      ROUND(AVG(stars),2) AS avg_stars
+FROM reviews 
+GROUP BY product_id, 
+        EXTRACT (MONTH FROM submit_date)
+ORDER BY EXTRACT (MONTH FROM submit_date) ASC,
+        product_id
