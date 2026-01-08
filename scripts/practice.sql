@@ -166,3 +166,12 @@ GROUP BY product_id,
         EXTRACT (MONTH FROM submit_date)
 ORDER BY EXTRACT (MONTH FROM submit_date) ASC,
         product_id
+
+-- Challenge 5: Cards Issued Difference
+-- Solution:
+SELECT card_name,
+      MAX(issued_amount) - MIN(issued_amount) AS difference
+FROM monthly_cards_issued
+GROUP BY card_name
+ORDER BY MAX(issued_amount) - MIN(issued_amount) DESC
+
