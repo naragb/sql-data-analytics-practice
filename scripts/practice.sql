@@ -175,3 +175,16 @@ FROM monthly_cards_issued
 GROUP BY card_name
 ORDER BY MAX(issued_amount) - MIN(issued_amount) DESC
 
+-- Patient Support Analysis
+-- Solution:
+WITH cte AS(
+  SELECT policy_holder_id, 
+  COUNT(case_id)
+  FROM callers
+  GROUP BY policy_holder_id
+  HAVING COUNT(case_id) >= 3
+)
+
+SELECT COUNT(DISTINCT policy_holder_id) AS policy_holder_count
+FROM cte
+
