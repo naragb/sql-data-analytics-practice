@@ -188,3 +188,19 @@ WITH cte AS(
 SELECT COUNT(DISTINCT policy_holder_id) AS policy_holder_count
 FROM cte
 
+-- Challenge 6: User's Third Transaction
+-- Solution:
+WITH cte AS(
+SELECT user_id,
+       transaction_date,
+       spend,
+       ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY transaction_date) AS trans_num
+FROM transactions
+)
+
+SELECT user_id,
+       transaction_date, 
+       spend
+FROM cte 
+WHERE trans_num = 3
+
