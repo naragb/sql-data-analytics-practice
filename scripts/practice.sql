@@ -204,3 +204,13 @@ SELECT user_id,
 FROM cte 
 WHERE trans_num = 3
 
+-- Challenge 7: Pharmacy Analytics
+-- Solution: 
+SELECT drug,
+       (total_sales - cogs) AS total_profit
+FROM pharmacy_sales
+GROUP BY drug, 
+          total_sales,
+          cogs
+ORDER BY (total_sales - cogs) DESC
+LIMIT 3;
