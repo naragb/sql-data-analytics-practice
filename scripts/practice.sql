@@ -226,3 +226,13 @@ FROM pharmacy_sales
 WHERE total_sales - cogs <= 0
 GROUP BY manufacturer
 ORDER BY total_loss DESC;
+
+-- Challenge 9: Pharmacy Analytics(Part 3)
+-- Solution:
+SELECT manufacturer,
+     CONCAT('$', ROUND(SUM(total_sales)/1000000), ' million') AS sales
+FROM pharmacy_sales
+GROUP BY manufacturer
+ORDER BY (SUM(total_sales)/1000000) DESC,
+        manufacturer;
+
