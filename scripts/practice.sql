@@ -236,3 +236,19 @@ GROUP BY manufacturer
 ORDER BY (SUM(total_sales)/1000000) DESC,
         manufacturer;
 
+-- Challenge 9: Final Account Balance
+-- Solution:
+WITH cte AS(
+SELECT account_id,
+       SUM(amount) AS amount,
+      transaction_type
+FROM transactions 
+GROUP BY account_id, transaction_type)
+
+SELECT account_id, 
+      SUM(amount) FILTER (WHERE transaction_type = 'Deposit') -
+      SUM(amount) FILTER (WHERE transaction_type = 'Withdrawal') AS final_balance
+FROM cte
+GROUP BY account_id
+
+
