@@ -270,3 +270,31 @@ FROM items_per_order
 WHERE order_occurrences =
       (SELECT MAX(order_occurrences) FROM items_per_order)
 ORDER BY order_occurrences ASC
+
+-- Challenge 13: Histogram of Users and Purchases
+-- Source: DataLemur(medium)
+-- Solution:
+With latest AS(
+    SELECT MAX(transaction_date) AS transaction_date,
+          user_id
+    FROM user_transactions
+    GROUP BY user_id
+)
+SELECT
+  l.transaction_date,
+  l.user_id,
+  COUNT(ut.product_id) AS purchase_count
+FROM latest l 
+JOIN user_transactions ut 
+  ON ut.user_id=l.user_id
+  AND ut.transaction_date=l.transaction_date
+GROUP BY l.transaction_date, l.user_id
+ORDER BY l.transaction_date, l. user_id;
+
+/*
+Lesson Learned:
+1. The initial product count was incorrect because it counted all products instead of only the product on the latest data.
+	Thus, I have created cte, so I will be able to calculate the count of the products.
+2. The latest date requires MAX()
+3. Other (simple) solutions are also possible.
+*/
