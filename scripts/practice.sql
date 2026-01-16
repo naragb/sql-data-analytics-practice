@@ -77,6 +77,7 @@ Data Lemur: Practice and Lessons
 */
 
 -- Challenge #1: Teams Power Users
+-- Source: DataLemur
 -- Solution:
 SELECT
     sender_id,
@@ -95,6 +96,7 @@ Lesson Learned:
 */
 
 -- Challenge #2: 
+-- Source: DataLemur
 -- Solution:
 SELECT 
     user_id,
@@ -113,6 +115,7 @@ Lesson Learned:
 */
 
 --- Challenge # 3: Second Day Confirmation 
+-- Source: DataLemur
 -- Solution 1:
 SELECT  e.user_id
 FROM emails AS e 
@@ -144,6 +147,7 @@ Lesson Learned:
 */
 
 -- Challenge # 4
+-- Source: DataLemur
 -- Solution:
 SELECT u.city,
       COUNT(order_id) AS total_orders
@@ -156,6 +160,7 @@ ORDER BY COUNT(order_id)  DESC
 LIMIT 3 
 
 -- Challenge # 5
+-- Source: DataLemur
 -- Solution:
 SELECT 
       EXTRACT (MONTH FROM submit_date) AS mth, 
@@ -167,7 +172,8 @@ GROUP BY product_id,
 ORDER BY EXTRACT (MONTH FROM submit_date) ASC,
         product_id
 
--- Challenge 5: Cards Issued Difference
+-- Challenge 6: Cards Issued Difference
+-- Source: DataLemur
 -- Solution:
 SELECT card_name,
       MAX(issued_amount) - MIN(issued_amount) AS difference
@@ -175,7 +181,8 @@ FROM monthly_cards_issued
 GROUP BY card_name
 ORDER BY MAX(issued_amount) - MIN(issued_amount) DESC
 
--- Patient Support Analysis
+-- Challenge 7: Patient Support Analysis
+-- Source: DataLemur
 -- Solution:
 WITH cte AS(
   SELECT policy_holder_id, 
@@ -188,7 +195,8 @@ WITH cte AS(
 SELECT COUNT(DISTINCT policy_holder_id) AS policy_holder_count
 FROM cte
 
--- Challenge 6: User's Third Transaction
+-- Challenge 8: User's Third Transaction
+-- Source: DataLemur
 -- Solution:
 WITH cte AS(
 SELECT user_id,
@@ -204,7 +212,7 @@ SELECT user_id,
 FROM cte 
 WHERE trans_num = 3
 
--- Challenge 7: Pharmacy Analytics
+-- Challenge 9: Pharmacy Analytics
 -- Solution: 
 SELECT drug,
        (total_sales - cogs) AS total_profit
@@ -216,7 +224,8 @@ ORDER BY (total_sales - cogs) DESC
 LIMIT 3;
 
 
--- Challenge 8: Pharmacy Analytics (Part 2)
+-- Challenge 10: Pharmacy Analytics (Part 2)
+-- Source: DataLemur
 -- Solution:
 SELECT
   manufacturer,
@@ -227,7 +236,8 @@ WHERE total_sales - cogs <= 0
 GROUP BY manufacturer
 ORDER BY total_loss DESC;
 
--- Challenge 9: Pharmacy Analytics(Part 3)
+-- Challenge 11: Pharmacy Analytics(Part 3)
+-- Source: DataLemur
 -- Solution:
 SELECT manufacturer,
      CONCAT('$', ROUND(SUM(total_sales)/1000000), ' million') AS sales
@@ -236,7 +246,8 @@ GROUP BY manufacturer
 ORDER BY (SUM(total_sales)/1000000) DESC,
         manufacturer;
 
--- Challenge 9: Final Account Balance
+-- Challenge 12: Final Account Balance
+-- Source: DataLemur
 -- Solution:
 WITH cte AS(
 SELECT account_id,
@@ -251,4 +262,11 @@ SELECT account_id,
 FROM cte
 GROUP BY account_id
 
-
+-- Challenge 13: Compressed Mode
+-- Source: DataLemur
+-- Solution:
+SELECT item_count AS mode
+FROM items_per_order
+WHERE order_occurrences =
+      (SELECT MAX(order_occurrences) FROM items_per_order)
+ORDER BY order_occurrences ASC
