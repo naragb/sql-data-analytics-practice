@@ -298,3 +298,47 @@ Lesson Learned:
 2. The latest date requires MAX()
 3. Other (simple) solutions are also possible.
 */
+
+-- Challenge 14: FAANG Stock Min-Max (Part 1)
+-- Source: DataLemur(medium)
+-- Solution:
+
+WITH cte AS(
+SELECT 
+    ticker,
+    open,
+    TO_CHAR(date, 'Mon-YYYY') AS month,
+    ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY open DESC) AS rn_highest,
+    ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY open ASC) AS rn_lowest
+FROM stock_prices
+),
+
+cte_high AS(
+  SELECT ticker,
+          month AS highest_mth,
+          open AS highest_open
+  FROM cte
+  WHERE rn_highest = 1
+
+),
+
+cte_low AS(
+  SELECT ticker,
+          month AS lowest_mth,
+          open AS lowest_open
+  FROM cte
+  WHERE rn_lowest = 1
+
+)
+
+SELECT h.ticker,
+       h.highest_mth, h.highest_open,
+       l.lowest_mth,  l.lowest_open
+FROM cte_high AS h 
+JOIN cte_low AS l 
+USING (ticker)
+ORDER BY h.ticker
+
+
+
+
