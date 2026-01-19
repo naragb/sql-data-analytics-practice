@@ -340,5 +340,20 @@ USING (ticker)
 ORDER BY h.ticker
 
 
+-- Challenge 15: 182 Duplicate Emails
+-- Source: Leetcode
+-- Solution:
+
+-- Write your PostgreSQL query statement below
+with cte AS(
+SELECT email,
+        COUNT(email) AS count_email
+FROM Person
+GROUP BY email 
+HAVING COUNT(email) > 1)
+
+SELECT email
+FROM cte
+
 
 
