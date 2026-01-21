@@ -355,5 +355,15 @@ HAVING COUNT(email) > 1)
 SELECT email
 FROM cte
 
-
-
+-- Challenge 15: Sales Analysis III
+-- Source: Leetcode
+-- Solution:
+-- Write your PostgreSQL query statement below
+SELECT p.product_id,
+       p.product_name
+FROM Product AS p
+JOIN Sales AS s
+ON p.product_id=s.product_id
+GROUP BY p.product_id,p.product_name
+HAVING MIN(s.sale_date) >= '2019-01-01' AND 
+        MAX(s.sale_date) < '2019-03-31'
