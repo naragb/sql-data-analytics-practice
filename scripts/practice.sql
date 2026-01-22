@@ -367,3 +367,14 @@ ON p.product_id=s.product_id
 GROUP BY p.product_id,p.product_name
 HAVING MIN(s.sale_date) >= '2019-01-01' AND 
         MAX(s.sale_date) < '2019-03-31'
+
+-- Challenge 15: Not Boring Movie
+-- Source: Leetcode
+-- Solution:
+
+SELECT *
+FROM Cinema
+WHERE id % 2 = 1 AND
+    description != 'boring'
+ORDER BY rating DESC
+
