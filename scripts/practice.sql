@@ -378,6 +378,11 @@ WHERE id % 2 = 1 AND
     description != 'boring'
 ORDER BY rating DESC
 
--- Challenge 16: 
+-- Challenge 16: 595. Big Countries
 -- Source: Leetcode
 -- Solution:
+
+SELECT name, population, area
+FROM World
+WHERE area >= 3000000 OR
+population >= 25000000
