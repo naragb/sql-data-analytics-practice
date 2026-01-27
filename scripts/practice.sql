@@ -401,7 +401,7 @@ WITH cte AS(
 SELECT class
 FROM cte
 
--- Challenge 17: 1890. The Latest Login in 2020
+-- Challenge 18: 1890. The Latest Login in 2020
 -- Source: Leetcode
 -- Solution:
 
@@ -412,4 +412,15 @@ WHERE time_stamp >= '2020-01-01' AND
         time_stamp < '2021-01-01'
 GROUP BY user_id
 
-
+-- Challenge 19: 3793. Find Users with High Token Usage
+-- Source: Leetcode
+-- Solution:
+SELECT user_id,
+        COUNT(*) AS prompt_count,
+        ROUND(AVG(tokens),2) AS avg_tokens 
+FROM prompts
+GROUP BY user_id
+HAVING COUNT(*) >= 3 AND 
+        MAX(tokens) > AVG(tokens)
+ORDER BY AVG(tokens) DESC,
+        user_id ASC
