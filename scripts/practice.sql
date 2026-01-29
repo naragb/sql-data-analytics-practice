@@ -424,3 +424,8 @@ HAVING COUNT(*) >= 3 AND
         MAX(tokens) > AVG(tokens)
 ORDER BY AVG(tokens) DESC,
         user_id ASC
+
+
+-- Challenge 19: 3793. Find Users with High Token Usage
+-- Source: Leetcode
+-- Solution:
