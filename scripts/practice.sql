@@ -429,3 +429,8 @@ ORDER BY AVG(tokens) DESC,
 -- Challenge 19: 3793. Find Users with High Token Usage
 -- Source: Leetcode
 -- Solution:
+
+
+-- Challenge 19: 3793. Find Users with High Token Usage
+-- Source: Leetcode
+-- Solution:
